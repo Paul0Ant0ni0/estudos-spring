@@ -13,6 +13,7 @@ public class Cargo { // nome da tabela = cargo
     private String nome;
     @Column(nullable = false, length = 120) // NOT NULL, e 120 caracteres
     private String descricao;
+    //@Column(columnDefinition = "DECIMAL(10,2) DEFAULT 0.00") -> Formatando o tipo da coluna
     @Column(nullable = false) // @Column serve para customizar a coluna
     private Double salario;
 

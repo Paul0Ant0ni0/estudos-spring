@@ -2,7 +2,6 @@ package org.soulcodeacademy.helpr.repositories;
 
 import org.soulcodeacademy.helpr.domain.Cargo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository // Indica que a interface é um repository

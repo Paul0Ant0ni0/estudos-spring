@@ -14,3 +14,18 @@ VALIDATE => Valida o código gerado.
 UPDATE => Atualizar as tabelas caso necessário.
 
 CREATE-DROP => Dropa ao final da execução.
+
+https://slides.com/josealmir/spring-backend
+
+------------- FLUXO PULL REQUEST-------------
+git status
+git branch <novaBranch>
+git checkout novaBranch
+git add .
+git status
+git commit -m "Comentário"
+git push origin novaBranch
+
+-------------- APÓS A PULL REQUEST -------------
+git checkout main
+git pull
