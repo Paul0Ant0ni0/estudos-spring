@@ -29,3 +29,56 @@ git push origin novaBranch
 -------------- APÓS A PULL REQUEST -------------
 git checkout main
 git pull
+
+3 - COMENTÁRIOS SPRING
+----------------------------------------- ENTITY ----------------------------------------- 
+
+public abstract class Exemplo -> Não será possivel criar objetos desta classe, pois é uma classe 
+abstract, só os herdeiros da classe poderam instanciar os objetos (métodos e propriedades).
+
+@Id // Torna o campo abaixo uma PRIMARY KEY -> OBRIGATÓRIO na criação de 
+@GeneratedValue(strategy = GenerationType.IDENTITY) // Preenche o campo id com AUTO_INCREMENT
+
+@Enumerated -> Representa os valores do ENUM como texto
+// Enum -> Delimita um conjunto de valores constantes
+------------- RELACIONAMENTO ENTRE TABELAS 
+@ManyToOne // MUITOS funcionarios para um cargo;
+@JoinColumn(name = "id_Cargo") // Cria uma coluna nova é a chave estrangeira de Cargo
+
+Na classe de herança o mysql irá criar uma única tabela 
+// Gera uma coluna dtype para indicar qual a superclasse (Filho ou Filha)
+
+// Anotações de relacionamento
+// @OneToOne = 1:1
+// @OneToMany/@ManyToOne = 1:N
+// @ManyToMany = N:N
+
+// Relacionamento Unidirecional = apenas uma das entidades "conhece" a outra
+// Relacionamento Bidirecional = as duas entidades se "conhece"
+----------------------------------------- REPOSITORY ----------------------------------------- 
+
+@Repository -> O Spring fica resposanvel de instanciar está classe e injetar os métodos abaixo
+public interface ExemploRepository extends JpaRepository<Exemplo, Integer> 
+
+// Métodos presentes
+// - findAll() => SELECT * FROM usuarios;
+// - findById(Integer) => SELECT * FROM usuarios WHERE id = ?;
+// - save(Usuario) => INSERT INTO(caso id nulo) ou UPDATE (caso id não nulo)
+// - delete(Usuario) => DELETE FROM usuarios WHERE id = ?;
+
+// CRUD 
+// Entidade -> Repository -> DTO -> Service + Controller
+
+----------------------------------------- DTO ----------------------------------------- 
+// Guarda as validações em comum para cliente e funcionário
+// No controller: JSON -> DTO
+// Verifica os dados inseridos de cliente
+// @NotNull => só verifica se tem valor ou não (objetos, integer, double)
+// @NotBlank => verifica se o telefone está "" (string)
+// DTO -> Objeto de transferencia de dados.
+// É util para validarmos as informações transferidas pelo cliente
+
+
+4 - Spring Security
+
+https://slides.com/josealmir/spring-security

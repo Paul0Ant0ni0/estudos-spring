@@ -1,11 +1,19 @@
 package org.soulcodeacademy.helpr.services;
 
 import org.soulcodeacademy.helpr.domain.Cargo;
+import org.soulcodeacademy.helpr.domain.Chamado;
+import org.soulcodeacademy.helpr.domain.Cliente;
 import org.soulcodeacademy.helpr.domain.Funcionario;
+import org.soulcodeacademy.helpr.domain.enums.StatusChamado;
 import org.soulcodeacademy.helpr.repositories.CargoRepository;
+import org.soulcodeacademy.helpr.repositories.ChamadoRepository;
+import org.soulcodeacademy.helpr.repositories.ClienteRepository;
 import org.soulcodeacademy.helpr.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Service // Indica para o Spring que esta classe será gerenciada por ele
 public class PopulateService {
@@ -14,6 +22,12 @@ public class PopulateService {
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ChamadoRepository chamadoRepository;
 
     public void populate(){
         Cargo c1 = new Cargo(null, "Diretor Geral", "Gerenciar a empresa", 30000.0);
@@ -27,13 +41,25 @@ public class PopulateService {
         Funcionario f2 = new Funcionario(null, "Victor Icoma", "victoricoma@gmail.com",
                 "51123497325", "12345", null, c2);
 
-        // vamos persitir as entidades = salvar os dados
-        this.cargoRepository.save(c1); // INSERT INTO
-        this.cargoRepository.save(c2);
-        this.cargoRepository.save(c3);
+        Cliente cliente1 = new Cliente(null, "Emanuelly Allana Lavínia Rocha", "emanuelly_rocha@yohoo.com.br",
+                "52908366673", "98InWpjGnt", "8428291599");
 
-        this.funcionarioRepository.save(f1);
-        this.funcionarioRepository.save(f2);
+        Cliente cliente2 = new Cliente(null, "Marina Maria Costa", "marina_costa@jsagromecanica.com.br",
+                "29773751201", "cPB16aJCDG", "8125469575");
+
+        Chamado ch1 = new Chamado(null, "Primeiro chamado do sistema", "Revisar as entidades criadas");
+        ch1.setCliente(cliente1);
+        Chamado ch2 = new Chamado(null, "Ativar VPN do sistema", "Conectar aos servidores remotos");
+        ch2.setCliente(cliente2);
+        ch2.setFuncionario(f1);
+        ch2.setStatus(StatusChamado.ATRIBUIDO);
+
+        // vamos persistir as entidades = salvar no banco
+        this.cargoRepository.saveAll(List.of(c1, c2, c3)); // INSERT INTO
+        this.funcionarioRepository.saveAll(List.of(f1, f2));
+        this.clienteRepository.saveAll(List.of(cliente1, cliente2));
+        this.chamadoRepository.saveAll(List.of(ch1, ch2));
+
     }
 
 

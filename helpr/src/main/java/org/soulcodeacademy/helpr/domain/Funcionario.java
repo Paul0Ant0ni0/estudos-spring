@@ -17,6 +17,9 @@ public class Funcionario extends Usuario {
     @JoinColumn(name = "id_Cargo") // Cria uma coluna nova é a chave estrangeira de Cargo
     private Cargo cargo; // Se quiser mudar o cargo do funcionário basta alterar o objeto deste campo
 
+    //  @OneToMany
+    //  private List<Chamado> chamados;
+
     public Funcionario(){
 
     }
