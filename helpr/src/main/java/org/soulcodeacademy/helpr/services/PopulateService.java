@@ -4,15 +4,16 @@ import org.soulcodeacademy.helpr.domain.Cargo;
 import org.soulcodeacademy.helpr.domain.Chamado;
 import org.soulcodeacademy.helpr.domain.Cliente;
 import org.soulcodeacademy.helpr.domain.Funcionario;
+import org.soulcodeacademy.helpr.domain.enums.Perfil;
 import org.soulcodeacademy.helpr.domain.enums.StatusChamado;
 import org.soulcodeacademy.helpr.repositories.CargoRepository;
 import org.soulcodeacademy.helpr.repositories.ChamadoRepository;
 import org.soulcodeacademy.helpr.repositories.ClienteRepository;
 import org.soulcodeacademy.helpr.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service // Indica para o Spring que esta classe será gerenciada por ele
@@ -29,6 +30,9 @@ public class PopulateService {
     @Autowired
     private ChamadoRepository chamadoRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     public void populate(){
         Cargo c1 = new Cargo(null, "Diretor Geral", "Gerenciar a empresa", 30000.0);
         Cargo c2 = new Cargo(null, "Diretor de Setor", "Gerenciar um setor da empresa", 18000.0);
@@ -36,16 +40,16 @@ public class PopulateService {
 
         // Integer id, String nome, String email, String cpf, String senha, String foto, Cargo cargo
         Funcionario f1 = new Funcionario(null, "Renato Pereira", "renatopereira@gmail.com",
-                "25206783284", "12345", null, c1);
-
+                "25206783284", this.encoder.encode("12345"), null, c1);
+        f1.setPerfil(Perfil.ADMIN); // Perfil aministrador para gerenciar a aplicação
         Funcionario f2 = new Funcionario(null, "Victor Icoma", "victoricoma@gmail.com",
-                "51123497325", "12345", null, c2);
+                "51123497325", this.encoder.encode("88484"), null, c2);
 
         Cliente cliente1 = new Cliente(null, "Emanuelly Allana Lavínia Rocha", "emanuelly_rocha@yohoo.com.br",
-                "52908366673", "98InWpjGnt", "8428291599");
+                "52908366673", this.encoder.encode("98InWpjGnt"), "8428291599");
 
         Cliente cliente2 = new Cliente(null, "Marina Maria Costa", "marina_costa@jsagromecanica.com.br",
-                "29773751201", "cPB16aJCDG", "8125469575");
+                "29773751201", this.encoder.encode("cPB16aJCDG"), "8125469575");
 
         Chamado ch1 = new Chamado(null, "Primeiro chamado do sistema", "Revisar as entidades criadas");
         ch1.setCliente(cliente1);

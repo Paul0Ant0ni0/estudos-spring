@@ -1,6 +1,7 @@
 1 - Depedencias 
 
-https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.7.5&packaging=jar&jvmVersion=17&groupId=org.soulcodeacademy&artifactId=helpr&name=helpr&description=Projeto%20de%20estudo%20back-end%20da%20Soulcode%20Academy%20JFS&packageName=org.soulcodeacademy.helpr&dependencies=devtools,mysql,data-jpa,web,validation
+https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.7.5&packaging=jar&jvmVersion=17&groupId=org.soulcodeacademy&artifactId=helpr&name=helpr&description=Projeto%20de%20estudo%20back-end%20da%20Soulcode%20Academy%20JFS&packageName=
+org.soulcodeacademy.helpr&dependencies=devtools,mysql,data-jpa,web,validation
 
 2 - Criar o ambiente de desenvolvimento
 DDL AUTO
@@ -82,3 +83,31 @@ public interface ExemploRepository extends JpaRepository<Exemplo, Integer>
 4 - Spring Security
 
 https://slides.com/josealmir/spring-security
+
+CLASSE DE TESTE JWT
+
+   public static void main(String[] args) {
+        String senha = "senhatop";
+
+        String token = JWT.create()
+                .withSubject("jr@gmail.com") // De quem pertence o token
+                //.withExpiresAt() data de expiração
+                .withClaim("nome", "batata") // informações adicionais
+                .sign(Algorithm.HMAC512(senha)); // assinatura -> Codificar
+
+        String email = JWT.require(Algorithm.HMAC512(senha))
+                .build().verify(token)
+                .getSubject();
+        String batata = JWT.require(Algorithm.HMAC512(senha))
+                .build().verify(token)
+                .getClaim("nome").asString();
+
+        System.out.println("E-mail: "+ email);
+        System.out.println("Nome: "+ batata);
+    }
+
+1.0 -> Criar as variáveis de ambiente
+nomeVarivel=valordasenha -> Senha
+tempoValidade=valor ms -> Data de expiração token de acesso
+
+2.0 -> Criar a classe TokenUtil com a anotação @Component

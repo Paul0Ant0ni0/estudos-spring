@@ -4,6 +4,7 @@ import org.soulcodeacademy.helpr.domain.Cargo;
 import org.soulcodeacademy.helpr.domain.dto.CargoDTO;
 import org.soulcodeacademy.helpr.services.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,12 +25,13 @@ public class CargoController {
         return 1000; // resposta da requisição
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')")
     @GetMapping("/cargos")
     public List<Cargo> listar(){
         // Requisição -> Controller -> Service -> Repository -> SELECT * FROM cargo;
         return this.cargoService.listar(); // JSON = Javascript Object Notation
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_FUNCIONARIO')")
     @GetMapping("cargos/{idCargo}") // Indica que o valor após a barra é dinamico
     public Cargo getCargo(@PathVariable Integer idCargo){
         // @PathVariable -> Extrai do endpoint o valor dinâmico
@@ -37,6 +39,7 @@ public class CargoController {
     }
 
     // Podemos utilizar o mesmo endpoint para verbos direfentes
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // PERMITE O ACESSO SE O PERFIL É ADMINISTRADOR
     @PostMapping("/cargos") // REQUISIÇÃO TIPO POST para /cargos
     public Cargo salvar(@Valid @RequestBody CargoDTO cargo){
         // @RequestBody -> extrai o JSON do corpo e converte para cargo (deserialização)
@@ -45,6 +48,7 @@ public class CargoController {
     }
 
     // Mapeia requisições do método Put
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/cargos/{idCargo}") // /cargo/5
     public Cargo atualizar(@PathVariable Integer idCargo,
                            @Valid @RequestBody CargoDTO cargo){
@@ -52,6 +56,7 @@ public class CargoController {
         return atualizado;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("cargos/{idCargo}") // verbo DELETE no /cargo/1
     public void deletar(@PathVariable Integer idCargo){
         this.cargoService.deletar(idCargo);
