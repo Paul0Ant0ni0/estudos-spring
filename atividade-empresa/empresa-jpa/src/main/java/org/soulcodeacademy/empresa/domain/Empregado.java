@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 public class Empregado {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEmpregado;
@@ -20,16 +19,16 @@ public class Empregado {
     @Column(nullable = false)
     private Double salario;
 
-    @OneToOne // 1:1 (Empregado-Endereco)
+    @OneToOne // 1:1 (Empregado-Endereço)
     @JoinColumn(name = "id_endereco", nullable = false) // renomeia a coluna da FK
     private Endereco endereco;
 
     // Esta lista representa quais projetos o empregado participa
-    @ManyToMany(fetch = FetchType.EAGER) // EAGER = Antecipa os dados do projeto N:N (Empregado - Projetos)
-    private List<Projeto> projetos = new ArrayList<>(); // Sempre em relacionamento para muito utilizar uma LISTA.
+    @ManyToMany(fetch = FetchType.EAGER) // EAGER = antecipa os dados de projeto
+    private List<Projeto> projetos = new ArrayList<>();
 
-    public Empregado(){} // Construtor que a ORM utilizara para criar os objetos
-
+    public Empregado() {
+    }
 
     public Empregado(Integer idEmpregado, String nome, String email, Double salario) {
         this.idEmpregado = idEmpregado;
@@ -77,7 +76,6 @@ public class Empregado {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
 
     public List<Projeto> getProjetos() {
         return projetos;

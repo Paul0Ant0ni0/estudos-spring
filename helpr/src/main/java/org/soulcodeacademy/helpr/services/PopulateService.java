@@ -39,7 +39,7 @@ public class PopulateService {
         Cargo c3 = new Cargo(null, "Técnico Geral", "Resolve os chamados urgentes", 12000.0);
 
         // Integer id, String nome, String email, String cpf, String senha, String foto, Cargo cargo
-        Funcionario f1 = new Funcionario(null, "Renato Pereira", "renatopereira@gmail.com",
+        Funcionario f1 = new Funcionario(null, "Renato Pereira", "renato.pereira@gmail.com",
                 "25206783284", this.encoder.encode("12345"), null, c1);
         f1.setPerfil(Perfil.ADMIN); // Perfil aministrador para gerenciar a aplicação
         Funcionario f2 = new Funcionario(null, "Victor Icoma", "victoricoma@gmail.com",

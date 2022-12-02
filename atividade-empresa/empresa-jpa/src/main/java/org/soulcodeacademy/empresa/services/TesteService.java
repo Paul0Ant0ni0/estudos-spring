@@ -4,10 +4,10 @@ import org.soulcodeacademy.empresa.domain.Dependente;
 import org.soulcodeacademy.empresa.domain.Empregado;
 import org.soulcodeacademy.empresa.domain.Endereco;
 import org.soulcodeacademy.empresa.domain.Projeto;
-import org.soulcodeacademy.empresa.repository.DependenteRepository;
-import org.soulcodeacademy.empresa.repository.EmpregadoRepository;
-import org.soulcodeacademy.empresa.repository.EnderecoRepository;
-import org.soulcodeacademy.empresa.repository.ProjetoRepository;
+import org.soulcodeacademy.empresa.repositories.DependenteRepository;
+import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
+import org.soulcodeacademy.empresa.repositories.EnderecoRepository;
+import org.soulcodeacademy.empresa.repositories.ProjetoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,7 @@ public class TesteService {
         Endereco endereco2 = new Endereco(null, "São Paulo", "SP");
         Endereco endereco3 = new Endereco(null, "São Paulo", "SP");
 
-        // ASSOCIAÇÃO 1:1
+        // Associação 1:1
         empregado1.setEndereco(endereco1);
         empregado2.setEndereco(endereco2);
         empregado3.setEndereco(endereco3);
@@ -47,8 +47,7 @@ public class TesteService {
         this.enderecoRepository.saveAll(List.of(endereco1, endereco2, endereco3));
         this.empregadoRepository.saveAll(List.of(empregado1, empregado2, empregado3));
 
-        //ASSOCIAÇÃO N:1
-
+        // Associação 1:N
         Dependente dependente1 = new Dependente(null, "Maria Antonieta", 13);
         Dependente dependente2 = new Dependente(null, "Carlos José", 11);
         Dependente dependente3 = new Dependente(null, "Pedro Alves", 9);
@@ -59,8 +58,7 @@ public class TesteService {
 
         this.dependenteRepository.saveAll(List.of(dependente1, dependente2, dependente3));
 
-        // ASSOCIAÇÃO N:N
-
+        // Associação N:N
         Projeto projeto1 = new Projeto(null, "Campanha de marketing I", 5000.0, "Campanha 1º semestre");
         Projeto projeto2 = new Projeto(null, "Campanha de marketing II", 8500.0, "Campanha 2º semestre");
 
@@ -68,51 +66,17 @@ public class TesteService {
 
         empregado1.getProjetos().add(projeto1); // O empregado1 participa do projeto1
         empregado1.getProjetos().add(projeto2); // O empregado1 participa do projeto2
+
         empregado2.getProjetos().add(projeto2); // O empregado2 participa do projeto2
 
         this.empregadoRepository.save(empregado1);
         this.empregadoRepository.save(empregado2);
 
-        // Remover projeto de empregado
-
+        // Remover projeto do empregado
         Empregado preguicoso = this.empregadoRepository.findById(2).orElseThrow();
         System.out.println(preguicoso.getProjetos());
         preguicoso.getProjetos().remove(projeto2);
 
         this.empregadoRepository.save(preguicoso);
-
-
-
-        // Igualdade de objetos
-        // Quando usamos o new alocamos o objeto em um endereço de memória
-
-        /*
-
-        Projeto projeto1 = new Projeto(1, "Campanha 1", 2500.0, "Descrição top");
-        Projeto projeto2 = new Projeto(1, "Campanha 1", 2500.0, "Descrição top");
-
-        if (projeto1.equals(projeto2)){ // Compara se são identicos, estão no mesmo local da memória
-            System.out.println("São iguais");
-        }else {
-            System.out.println("Não são iguais");
-        }
-
-        System.out.println(projeto1.hashCode());
-        System.out.println(projeto2.hashCode());
-
-
-        List<Projeto> projetos = new ArrayList<>();
-        projetos.add(projeto1);
-        projetos.add(projeto2);
-
-        Projeto projeto3 = new Projeto(1, "Campanha 1", 2500.0, "Descrição top");
-
-        projetos.remove(projeto3);
-
-        System.out.println(projetos);
-
-
-         */
-
     }
 }

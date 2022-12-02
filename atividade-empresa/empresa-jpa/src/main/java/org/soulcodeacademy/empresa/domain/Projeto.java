@@ -5,7 +5,6 @@ import java.util.Objects;
 
 @Entity
 public class Projeto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProjeto;
@@ -19,7 +18,7 @@ public class Projeto {
     @Column(nullable = false, length = 200)
     private String descricao;
 
-    public Projeto(){}
+    public Projeto() {}
 
     public Projeto(Integer idProjeto, String nome, Double orcamento, String descricao) {
         this.idProjeto = idProjeto;
@@ -64,10 +63,10 @@ public class Projeto {
     public boolean equals(Object o) {
         // Compara se estão no mesmo local da memória
         if (this == o) return true;
-        // Se o é nulo OU a classe dos dois for direferente então são diferentes
+        // Se o é nulo OU a classe dos dois for diferente então são diferentes
         if (o == null || getClass() != o.getClass()) return false;
         Projeto projeto = (Projeto) o; // Tenta converter o objeto genérico para Projeto
-        // Se o Id dos objeto forem iguais, então os objetos são iguais
+        // Se o ID dos objetos forem iguais então os objetos são iguais
         return idProjeto.equals(projeto.idProjeto);
     }
 
