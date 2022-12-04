@@ -39,4 +39,9 @@ public class EmpregadoController {
     public void deletar(@PathVariable Integer idEmpregado){
         this.empregadoService.deletar(idEmpregado);
     }
+
+    @DeleteMapping("/empregados/{idEmpregado}/projetos/{idProjeto}")
+    public Empregado deletarProjeto(@PathVariable Integer idEmpregado, @PathVariable Integer idProjeto){
+        return this.empregadoService.deletarProjetoDoEmpregado(idProjeto, idEmpregado);
+    }
 }

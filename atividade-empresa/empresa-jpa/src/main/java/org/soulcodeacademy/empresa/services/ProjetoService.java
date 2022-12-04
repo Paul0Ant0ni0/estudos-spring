@@ -16,9 +16,6 @@ public class ProjetoService {
     @Autowired
     private ProjetoRepository projetoRepository;
 
-    @Autowired
-    private EnderecoService enderecoService;
-
 
     public List<Projeto> listar(){
         return this.projetoRepository.findAll();

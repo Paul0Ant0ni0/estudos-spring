@@ -68,4 +68,13 @@ public class EmpregadoService {
     }
 
 
+    public Empregado deletarProjetoDoEmpregado(Integer idProjeto, Integer idEmpregado){
+        Empregado empregado = this.getEmpregado(idEmpregado);
+        Projeto projeto = this.projetoService.getProjeto(idProjeto);
+        empregado.getProjetos().remove(projeto);
+
+        return this.empregadoRepository.save(empregado);
+
+    }
+
 }
