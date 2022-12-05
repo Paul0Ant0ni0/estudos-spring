@@ -36,9 +36,11 @@ public class EmpregadoService {
 
     public Empregado salvar(EmpregadoDTO dto){
         Endereco endereco = this.enderecoService.getEndereco(dto.getIdEndereco()); // adicionado um endereço, pois é obrigatório
-        Projeto projeto = this.projetoService.getProjeto(dto.getIdProjeto());
         Empregado empregado = new Empregado(null, dto.getNome(), dto.getEmail(), dto.getSalario());
-        empregado.getProjetos().add(projeto);
+        if (dto.getIdProjeto() != null){ // Verificando se o empregado tem um projeto
+            Projeto projeto = this.projetoService.getProjeto(dto.getIdProjeto());
+            empregado.getProjetos().add(projeto); // Adicionado um novo projeto ao empregado
+        }
         empregado.setEndereco(endereco);
         return this.empregadoRepository.save(empregado);
     }
