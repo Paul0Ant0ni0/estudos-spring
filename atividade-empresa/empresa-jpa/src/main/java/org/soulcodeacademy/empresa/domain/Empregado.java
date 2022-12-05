@@ -2,7 +2,9 @@ package org.soulcodeacademy.empresa.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Empregado {
@@ -25,7 +27,7 @@ public class Empregado {
 
     // Esta lista representa quais projetos o empregado participa
     @ManyToMany(fetch = FetchType.EAGER) // EAGER = antecipa os dados de projeto
-    private List<Projeto> projetos = new ArrayList<>();
+    private Set<Projeto> projetos = new HashSet<>(); // Set é uma coleção de lista que não permite valores duplicados
 
     public Empregado() {
     }
@@ -77,11 +79,11 @@ public class Empregado {
         this.endereco = endereco;
     }
 
-    public List<Projeto> getProjetos() {
+    public Set<Projeto> getProjetos() {
         return projetos;
     }
 
-    public void setProjetos(List<Projeto> projetos) {
+    public void setProjetos(Set<Projeto> projetos) {
         this.projetos = projetos;
     }
 }
